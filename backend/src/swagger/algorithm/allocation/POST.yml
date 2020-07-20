@@ -1,0 +1,30 @@
+Creates a portfolio allocation based on request
+---
+tags:
+  - algorithm
+parameters:
+  - name: body
+    in: body
+    schema:
+      type: object
+      properties:
+        stocks:
+          type: array
+          items:
+            type: string
+          example: ["AMZN", "FB", "GOOG"]
+          description: Stocks to be included in generated portfolio
+        views:
+          type: object
+          example: {"AMZN" : "0.15", "FB" : "-0.2",  "GOOG" : "0.1"}
+          description: Views to be considered in generating portfolio
+
+
+        
+responses:
+  200:
+    description: Successful allocation
+    schema:
+      example:
+        allocation:
+          {"AMZN" : "0.2", "FB" : "0.3",  "GOOG" : "0.5"}
