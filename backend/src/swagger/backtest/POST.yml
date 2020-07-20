@@ -1,0 +1,24 @@
+Backtests an allocation provided by the body
+---
+tags:
+  - backtest
+parameters:
+  - name: body
+    in: body
+    schema:
+      type: object
+      properties:
+        allocation:
+          type: object
+          example: {"AMZN" : "0.2", "FB" : "0.3",  "GOOG" : "0.5"}
+          description: The desired portfolio allocation
+responses:
+  200:
+    description: The results of the backtest
+    schema:
+      example:
+        results:
+          returns:
+            [0.0, 1.0, -0.5, 2.0, 0.3, -1.0]
+          ratios: 
+            {"alpha" : 0.302010, "beta" : 1.31}
