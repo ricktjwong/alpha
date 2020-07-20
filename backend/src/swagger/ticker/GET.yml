@@ -1,0 +1,11 @@
+Returns all the tickers in database
+---
+tags:
+  - ticker
+responses:
+  200:
+    description: Successfully retrieved all tickers
+    schema:
+      example:
+        tickers:
+          ["AMZN", "GOOG", "FB"]
