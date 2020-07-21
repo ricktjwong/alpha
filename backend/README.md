@@ -50,23 +50,24 @@ You can display availables make commands using `make`.
 
 While developing, you will probably rely mostly on `make server.start`; however, there are additional scripts at your disposal:
 
-| `make <script>`      | Description                                                                  |
-| -------------------- | ---------------------------------------------------------------------------- |
-| `help`               | Display availables make commands                                             |
-| `server.install`     | Install the pip dependencies on the server's container.                      |
-| `server.start`       | Run your local server in its own docker container.                           |
-| `server.daemon`      | Run your local server in its own docker container as a daemon.               |
-| `server.upgrade`     | Upgrade pip packages interactively.                                          |
-| `database.connect`   | Connect to your docker database.                                             |
-| `database.migrate`   | Generate a database migration file using alembic, based on your model files. |
-| `database.upgrade`   | Run the migrations until your database is up to date.                        |
-| `database.downgrade` | Downgrade your database by one migration.                                    |
-| `test`               | Run unit tests with pytest in its own container.                             |
-| `test.coverage`      | Run test coverage using pytest-cov.                                          |
-| `test.lint`          | Run flake8 on the `src` and `test` directories.                              |
-| `test.safety`        | Run safety to check if your vendors have security issues.                    |
-| `format.black`       | Format python files using Black.                                             |
-| `format.isort`       | Order python imports using isort.                                            |
+| `make <script>`         | Description                                                                  |
+| --------------------    | ---------------------------------------------------------------------------- |
+| `help`                  | Display availables make commands                                             |
+| `server.install`        | Install the pip dependencies on the server's container.                      |
+| `server.start`          | Run your local server in its own docker container.                           |
+| `server.daemon`         | Run your local server in its own docker container as a daemon.               |
+| `server.upgrade`        | Upgrade pip packages interactively.                                          |
+| `database.connect`      | Connect to your docker database.                                             |
+| `database.migrate`      | Generate a database migration file using alembic, based on your model files. |
+| `database.upgrade`      | Run the migrations until your database is up to date.                        |
+| `database.downgrade`    | Downgrade your database by one migration.                                    |
+| `batch.populate_symbols`| Seeds database with Ticker symbols from NYSE                                 |
+| `test`                  | Run unit tests with pytest in its own container.                             |
+| `test.coverage`         | Run test coverage using pytest-cov.                                          |
+| `test.lint`             | Run flake8 on the `src` and `test` directories.                              |
+| `test.safety`           | Run safety to check if your vendors have security issues.                    |
+| `format.black`          | Format python files using Black.                                             |
+| `format.isort`          | Order python imports using isort.                                            |
 
 ## Database
 

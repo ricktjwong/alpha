@@ -16,3 +16,4 @@ include makefiles/test.mk
 include makefiles/database.mk
 include makefiles/format.mk
 include makefiles/help.mk
+include makefiles/batch.mk
