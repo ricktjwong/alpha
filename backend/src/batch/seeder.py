@@ -1,6 +1,6 @@
 from flask_script import Command, Option
 
-from .populate_symbols import populate_symbols
+from .populate_tickers import populate_tickers
 
 
 class Seeder(Command):
@@ -11,7 +11,7 @@ class Seeder(Command):
         self.db = db
 
     def run(self, data):
-        if data == "symbol":
-            populate_symbols()
+        if data == "ticker":
+            populate_tickers()
         else:
             print("Data requested for seed not found.")
