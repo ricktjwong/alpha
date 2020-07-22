@@ -1,2 +1,2 @@
-batch.populate_symbols: ## Populate Symbols
-	docker-compose run --rm server python src/manage.py seed --data=symbol
+batch.populate_tickers: ## Populate Tickers
+	docker-compose run --rm server python src/manage.py seed --data=ticker
