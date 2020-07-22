@@ -3,6 +3,7 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
 import config
+from batch.seeder import Seeder
 from models import db
 
 server = Flask(__name__)
@@ -12,7 +13,11 @@ db.init_app(server)
 
 migrate = Migrate(server, db)
 manager = Manager(server)
+
+seeder = Seeder(server, db)
+
 manager.add_command("db", MigrateCommand)
+manager.add_command("seed", seeder)
 
 if __name__ == "__main__":
     manager.run()

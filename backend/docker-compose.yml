@@ -22,6 +22,9 @@ services:
     image: postgres:9.4
     volumes_from:
       - dbdata
+    # Dangerous!
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
 
   testserver:
     env_file: .env
@@ -40,3 +43,6 @@ services:
 
   testdb:
     image: postgres:9.4
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
