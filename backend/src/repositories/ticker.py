@@ -12,9 +12,9 @@ class TickerRepository:
         return Ticker.query.all()
 
     @staticmethod
-    def create(symbol):
+    def create(symbol, mcap):
         """ Create a new user """
-        ticker = Ticker(symbol=symbol)
+        ticker = Ticker(symbol=symbol, mcap=mcap)
 
         return ticker.save()
 
