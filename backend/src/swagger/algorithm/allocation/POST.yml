@@ -12,11 +12,11 @@ parameters:
           type: array
           items:
             type: string
-          example: ["AMZN", "FB", "GOOG"]
+          example: ["BABA", "V", "ACN"]
           description: Stocks to be included in generated portfolio
         views:
           type: object
-          example: {"AMZN" : "0.15", "FB" : "-0.2",  "GOOG" : "0.1"}
+          example: {"BABA" : "0.15", "V" : "-0.2"}
           description: Views to be considered in generating portfolio
 
 
@@ -27,4 +27,4 @@ responses:
     schema:
       example:
         allocation:
-          {"AMZN" : "0.2", "FB" : "0.3",  "GOOG" : "0.5"}
+          {"BABA" : "0.2", "V" : "0.3",  "ACN" : "0.5"}
