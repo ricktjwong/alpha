@@ -25,8 +25,19 @@ def seed_covariance(db):
     df = pd.DataFrame(all_history)
     cov_mat = np.cov(df.to_numpy().T)
 
+    bp = 100000
+    count = 0
+
     for i in range(len(symbols)):
         for j in range(i, len(symbols)):
-            db.session.add(TickerCovariance(symbols[i], symbols[j], cov_mat[i][j]))
-        db.session.commit()
+            larger = max(symbols[i], symbols[j])
+            smaller = min(symbols[i], symbols[j])
+            db.session.add(TickerCovariance(larger, smaller, cov_mat[i][j]))
+
         count += j
+        if count > bp:
+            db.session.commit()
+            bp += 100000
+            print(f"Committing. {count} rows has been added as of now.")
+    db.session.commit()
+    print(f"Finished adding {count} rows.")
