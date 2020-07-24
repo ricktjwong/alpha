@@ -1,12 +1,13 @@
 import React from 'react';
-import ResultsComponent from '../Results'
+import SearchComponent from '../Search';
+import ResultsComponent from '../Results';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      Hi
-    <ResultsComponent />
+      <SearchComponent />
+      <ResultsComponent />
     </div>
   );
 }
