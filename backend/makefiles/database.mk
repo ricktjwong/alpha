@@ -1,6 +1,7 @@
 ### DATABASE
 # ¯¯¯¯¯¯¯¯
-
+database.bash: ## Connect to database to lauch commands
+	docker-compose exec db bash
 
 database.connect: ## Connect to database
 	docker-compose exec db psql -Upostgres
