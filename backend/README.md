@@ -61,7 +61,8 @@ While developing, you will probably rely mostly on `make server.start`; however,
 | `database.migrate`      | Generate a database migration file using alembic, based on your model files. |
 | `database.upgrade`      | Run the migrations until your database is up to date.                        |
 | `database.downgrade`    | Downgrade your database by one migration.                                    |
-| `batch.populate_tickers`| Seeds database with Ticker data from NYSE                                    |
+| `batch.seed_tickers`    | Seeds database with Ticker data from NYSE                                    |
+| `batch.seed_ohlc`       | Seeds database with OHLC data from NYSE                                      |
 | `test`                  | Run unit tests with pytest in its own container.                             |
 | `test.coverage`         | Run test coverage using pytest-cov.                                          |
 | `test.lint`             | Run flake8 on the `src` and `test` directories.                              |
