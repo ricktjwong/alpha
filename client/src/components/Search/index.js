@@ -1,70 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-class SearchComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: [],
-    };
-    this.style = {
-      searchBox: {
-        width: '50vw',
-        margin: '0 auto',
-        marginTop: 20,
-        marginBottom: 20,
-      },
-      optionContainer: {
-        width: '50vw',
-        margin: '0 auto',
-      },
-      inputField: {
-        fontSize: 20,
-      },
-    };
-  }
+const Search = (props) => {
+  const [searchTickers, setSearchTickers] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     fetch('http://localhost:3000/application/ticker')
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ options: data.tickers });
+        setSearchTickers(data.tickers);
       });
-  }
+  }, []);
 
-  onSearch(search) {
-    this.state.tickers.filter((x) => {
-      x.contains(search);
+  const updateTickerAndWeights = (tickers) => {
+    var weights = {};
+    tickers.forEach((x) => {
+      weights[x] = 1.0 / tickers.length;
     });
-  }
+    props.setTickers(tickers);
+    props.setWeights(weights);
+  };
 
-  onSelect(selectedList, selectedItem) {
+  const onSelect = (selectedList, selectedItem) => {
     // On confirmation conduct backtest on selected list on stocks with weights
+    updateTickerAndWeights(selectedList);
     console.log(selectedList);
-    console.log(selectedItem);
-  }
+  };
 
-  onRemove(selectedList, removedItem) {
-    console.log(selectedList);
-    console.log(removedItem);
-  }
+  const onRemove = (selectedList, removedItem) => {
+    updateTickerAndWeights(selectedList);
+    console.log(props.tickers);
+  };
 
-  render() {
-    if (this.state.options.length == 0) return null;
-    else {
-      return (
-        <Multiselect
-          placeholder="Choose ticker"
-          options={this.state.options}
-          selectedValues={this.state.selectedValue}
-          onSelect={this.onSelect}
-          onRemove={this.onRemove}
-          isObject={false}
-          style={this.style}
-        />
-      );
-    }
+  if (searchTickers.length == 0) return null;
+  else {
+    return (
+      <Multiselect
+        placeholder="Choose ticker"
+        options={searchTickers}
+        onSelect={onSelect}
+        onRemove={onRemove}
+        isObject={false}
+        style={style}
+      />
+    );
   }
-}
+};
 
-export default SearchComponent;
+const style = {
+  searchBox: {
+    width: '50vw',
+    margin: '0 auto',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  optionContainer: {
+    width: '50vw',
+    margin: '0 auto',
+  },
+  inputField: {
+    fontSize: 20,
+  },
+};
+
+export default Search;
