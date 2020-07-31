@@ -1,1 +1,2 @@
-from . import seed_ohlc, seed_tickers
+from .seed_covariance import seed_covariance
+from .seed_tickers import seed_tickers

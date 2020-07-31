@@ -8,6 +8,7 @@ from flask_restful import Resource
 
 from repositories import TickerRepository
 
+
 class TickerResource(Resource):
     """ Verbs relative to the users """
 
