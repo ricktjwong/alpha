@@ -5,3 +5,4 @@ db = SQLAlchemy()
 from .user import User
 from .ticker import Ticker
 from .ticker_ohlc import TickerOHLC
+from .ticker_covariance import TickerCovariance
