@@ -11,9 +11,13 @@ const Chart = (props) => {
 
   const getData = () => {
     const { data, maxPoints } = props;
+    // Get data within the bounds of the new x axis domain
     const filtered = data.filter(
       (d) => d.x >= zoomedXDomain[0] && d.x <= zoomedXDomain[1],
     );
+    // If filtered data within bounds is greater than maxPoints,
+    // reduce the number of points allowed by a multiple equal
+    // to filtered length / maxPoints
     if (filtered.length > maxPoints) {
       const k = Math.ceil(filtered.length / maxPoints);
       return filtered.filter((d, i) => i % k === 0);
@@ -21,33 +25,21 @@ const Chart = (props) => {
     return filtered;
   };
 
-  const getZoomFactor = () => {
-    const factor = 10 / (zoomedXDomain[1] - zoomedXDomain[0]);
-    return _.round(factor, factor < 3 ? 1 : 0);
-  };
-
   const renderedData = getData();
   if (zoomedXDomain.length == 0) {
     return null;
   } else {
     return (
-      <div>
-        <VictoryChart
-          domain={props.entireDomain}
-          containerComponent={
-            <VictoryZoomContainer
-              zoomDimension="x"
-              onZoomDomainChange={onDomainChange}
-              minimumZoom={{ x: 1 / 10000 }}
-            />
-          }>
-          <VictoryLine data={renderedData} style={style.chart} />
-        </VictoryChart>
-        <div>
-          {getZoomFactor()}x zoom; rendering {renderedData.length} of{' '}
-          {props.data.length}
-        </div>
-      </div>
+      <VictoryChart
+        domain={props.entireDomain}
+        containerComponent={
+          <VictoryZoomContainer
+            zoomDimension="x"
+            onZoomDomainChange={onDomainChange}
+          />
+        }>
+        <VictoryLine data={renderedData} style={style.chart} />
+      </VictoryChart>
     );
   }
 };

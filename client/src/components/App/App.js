@@ -29,19 +29,24 @@ const App = () => {
       <Button variant="primary" onClick={getChartData}>
         Render Chart
       </Button>
-      <br />
-      <br />
       {renderLoad && (
-        <Spinner animation="border" variant="primary">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+        <div style={style.space}>
+          <Spinner animation="border" variant="primary">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
       )}
-      {/* <Weights weights={weights} setWeights={setWeights} /> */}
       {!renderLoad && chartData.length != 0 && (
         <Chart data={chartData} entireDomain={entireDomain} maxPoints={300} />
       )}
     </div>
   );
+};
+
+const style = {
+  space: {
+    marginTop: 20,
+  },
 };
 
 export default App;

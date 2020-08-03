@@ -33,16 +33,14 @@ const Search = (props) => {
   if (searchTickers.length == 0) return null;
   else {
     return (
-      <>
-        <Multiselect
-          placeholder="Choose tickers"
-          options={searchTickers}
-          onSelect={onSelect}
-          onRemove={onRemove}
-          isObject={false}
-          style={style}
-        />
-      </>
+      <Multiselect
+        placeholder="Choose tickers"
+        options={searchTickers}
+        onSelect={onSelect}
+        onRemove={onRemove}
+        isObject={false}
+        style={style}
+      />
     );
   }
 };
