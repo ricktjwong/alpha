@@ -24,19 +24,17 @@ const Search = (props) => {
   const onSelect = (selectedList, selectedItem) => {
     // On confirmation conduct backtest on selected list on stocks with weights
     updateTickerAndWeights(selectedList);
-    console.log(selectedList);
   };
 
   const onRemove = (selectedList, removedItem) => {
     updateTickerAndWeights(selectedList);
-    console.log(props.tickers);
   };
 
   if (searchTickers.length == 0) return null;
   else {
     return (
       <Multiselect
-        placeholder="Choose ticker"
+        placeholder="Choose tickers"
         options={searchTickers}
         onSelect={onSelect}
         onRemove={onRemove}
