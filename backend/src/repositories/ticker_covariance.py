@@ -6,10 +6,10 @@ from models import TickerCovariance
 class TickerCovarianceRepository:
     @staticmethod
     def get_covariance_matrix(symbols):
-        length = len(symbols)
-        cov_mat = np.ndarray(shape=(length, length))
-        for i in range(length):
-            for j in range(i, length):
+        dim = len(symbols)
+        cov_mat = np.ndarray(shape=(dim, dim))
+        for i in range(dim):
+            for j in range(i, dim):
                 covariance = TickerCovarianceRepository.get_covariance(
                     symbols[i], symbols[j]
                 )

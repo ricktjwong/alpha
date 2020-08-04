@@ -65,13 +65,13 @@ def get_allocation(stocks):
     # https://quant.stackexchange.com/questions/8594/derivation-of-the-tangency-maximum-sharpe-ratio-portfolio-in-markowitz-portfol
     inverse = inv(cov_mat)
 
-    step1 = matmul(np.ones(len(stocks)), inv(cov_mat))  # 𝜄inv(Σ)
-    step2 = matmul(step1, implied_returns.T)  # 𝜄inv(Σ)𝜇
-    step3 = matmul(inverse, implied_returns.T)  # inv(Σ)𝜇
-    step4 = step3 / step2  # inv(Σ)𝜇 / 𝜄inv(Σ)𝜇
+    ones_inv_sigma = matmul(np.ones(len(stocks)), inv(cov_mat))  # 𝜄inv(Σ)
+    ones_inv_sigma_mu = matmul(ones_inv_sigma, implied_returns.T)  # 𝜄inv(Σ)𝜇
+    inv_sigma_mu = matmul(inverse, implied_returns.T)  # inv(Σ)𝜇
+    max_sharpe_alloc = inv_sigma_mu / ones_inv_sigma_mu  # inv(Σ)𝜇 / 𝜄inv(Σ)𝜇
 
     allocation = {}
-    for symbol, alloc in zip(stocks, step4):
+    for symbol, alloc in zip(stocks, max_sharpe_alloc):
         allocation[symbol] = alloc
 
     return allocation
