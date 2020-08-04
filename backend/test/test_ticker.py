@@ -22,7 +22,7 @@ class TestTicker(unittest.TestCase):
 
     def test_get(self):
         """ The GET on `/user` should return an user """
-        TickerRepository.create("Test1")
+        TickerRepository.create("Test1", 12345)
         response = self.client.get("/application/ticker")
 
         self.assertEqual(response.status_code, 200)

@@ -1,9 +1,21 @@
 """ Defines the Ticker Covariance repository """
-
+import numpy as np
 from models import TickerCovariance
 
 
 class TickerCovarianceRepository:
+    @staticmethod
+    def get_covariance_matrix(symbols):
+        dim = len(symbols)
+        cov_mat = np.ndarray(shape=(dim, dim))
+        for i in range(dim):
+            for j in range(i, dim):
+                covariance = TickerCovarianceRepository.get_covariance(
+                    symbols[i], symbols[j]
+                )
+                cov_mat[i][j] = cov_mat[j][i] = covariance[0]
+        return cov_mat
+
     @staticmethod
     def get_covariance(symbol1, symbol2):
         larger = max(symbol1, symbol2)
@@ -11,6 +23,7 @@ class TickerCovarianceRepository:
         return (
             TickerCovariance.query.filter(TickerCovariance.symbol1 == larger)
             .filter(TickerCovariance.symbol2 == smaller)
+            .with_entities(TickerCovariance.covariance)
             .one()
         )
 
