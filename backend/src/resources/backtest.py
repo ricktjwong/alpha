@@ -2,22 +2,34 @@
 Define the REST verbs relative to backtest
 """
 
+import numpy as np
 from flasgger import swag_from
 from flask.json import jsonify
 from flask_restful import Resource
+from flask_restful.reqparse import Argument
+from numpy import matmul
+
+from repositories import TickerOHLCRepository
+from util import parse_dict, parse_params
 
 
 class BacktestResource(Resource):
     """ Verbs relative to the users """
 
     @staticmethod
-    @swag_from("../swagger/backtest/POST.yml")
-    def post():
-        return jsonify(
-            {
-                "results": {
-                    "returns": [0.0, 1.0, -0.5, 2.0, 0.3, -1.0],
-                    "ratios": {"alpha": 0.302010, "beta": 1.31},
-                }
-            }
+    @parse_params(
+        Argument(
+            "allocation", location="json", required=True, help="Allocation of stocks."
         )
+    )
+    @swag_from("../swagger/backtest/POST.yml")
+    def post(allocation):
+        allocation = parse_dict(allocation)
+        symbols = allocation.keys()
+
+        start_date = TickerOHLCRepository.get_earliest_common_date(symbols)
+        history = TickerOHLCRepository.get_by_tickers(symbols, start_date)
+
+        weight_vector = np.fromiter(allocation.values(), dtype=float)
+        returns = matmul(weight_vector, history.to_numpy().T)
+        return jsonify({"results": {"returns": returns.tolist()}})
