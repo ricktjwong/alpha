@@ -19,25 +19,7 @@ export const getApiData = (props) => {
   getAllocation(tickers).then(
     (alloc) => {
       setWeights(alloc.allocation);
-      getBacktest(alloc).then(
-        (res) => {
-          const data = res.results.returns;
-          const final = [];
-          for (var i = 0; i < data.length; i++) {
-            final.push({ x: new Date(i), y: data[i] });
-          }
-          setEntireDomain({
-            y: [_.minBy(final, (d) => d.y).y, _.maxBy(final, (d) => d.y).y],
-            x: [final[0].x, _.last(final).x],
-          });
-          setChartData(final);
-          setRenderLoad(false);
-        },
-        (err) => {
-          console.log(err);
-          setRenderLoad(false);
-        },
-      );
+      handleGetBacktest(alloc, setChartData, setEntireDomain, setRenderLoad);
     },
     (err) => {
       console.log(err);
@@ -90,4 +72,31 @@ export const getBacktest = (allocation) => {
         },
       );
   });
+};
+
+const handleGetBacktest = (
+  alloc,
+  setChartData,
+  setEntireDomain,
+  setRenderLoad,
+) => {
+  getBacktest(alloc).then(
+    (res) => {
+      const data = res.results.returns;
+      const final = [];
+      for (var i = 0; i < data.length; i++) {
+        final.push({ x: new Date(i), y: data[i] });
+      }
+      setEntireDomain({
+        y: [_.minBy(final, (d) => d.y).y, _.maxBy(final, (d) => d.y).y],
+        x: [final[0].x, _.last(final).x],
+      });
+      setChartData(final);
+      setRenderLoad(false);
+    },
+    (err) => {
+      console.log(err);
+      setRenderLoad(false);
+    },
+  );
 };
