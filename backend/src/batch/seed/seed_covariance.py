@@ -17,7 +17,7 @@ def seed_covariance(db):
     symbols = TickerOHLCRepository.get_all_symbols()
     symbols = [res[0] for res in symbols]
 
-    df = TickerOHLCRepository.get_by_tickers(symbols, date_1yr_ago)
+    df, _ = TickerOHLCRepository.get_by_tickers(symbols, date_1yr_ago)
     cov_mat = np.cov(df.to_numpy().T)
 
     bp = 100000

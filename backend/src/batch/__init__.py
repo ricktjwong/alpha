@@ -15,7 +15,7 @@ class Batch(Command):
     def run(self, data):
         if data == "seed_tickers":
             seed_tickers()
-        elif data =="prune_tickers":
+        elif data == "prune_tickers":
             prune_tickers(self.db)
         elif data == "seed_covariance":
             seed_covariance(self.db)

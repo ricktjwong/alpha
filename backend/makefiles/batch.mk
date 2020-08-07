@@ -1,3 +1,8 @@
+batch.seed_all: ## Populate all data sequentially
+	batch.seed_tickers
+	batch.seed_ohlc
+	batch.seed_covariance
+
 batch.seed_tickers: ## Populate Tickers
 	docker-compose run --rm server python src/manage.py batch --data=seed_tickers
 
