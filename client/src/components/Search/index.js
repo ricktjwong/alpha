@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Multiselect } from 'multiselect-react-dropdown';
+import { getTickers } from '../apiHandler';
 
 const Search = (props) => {
   const [searchTickers, setSearchTickers] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/application/ticker')
-      .then((res) => res.json())
-      .then((data) => {
-        setSearchTickers(data.tickers);
-      });
+    getTickers(setSearchTickers);
   }, []);
 
   const updateTickerAndWeights = (tickers) => {
@@ -18,11 +15,11 @@ const Search = (props) => {
       weights[x] = 1.0 / tickers.length;
     });
     props.setTickers(tickers);
-    props.setWeights(weights);
+    // Temporarily disable user setting of weights
+    // props.setWeights(weights);
   };
 
   const onSelect = (selectedList, selectedItem) => {
-    // On confirmation conduct backtest on selected list on stocks with weights
     updateTickerAndWeights(selectedList);
   };
 

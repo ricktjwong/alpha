@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Search from '../Search';
-import Weights from '../Weights';
+import Caption from '../Caption';
 import Chart from '../Chart';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
@@ -15,7 +15,13 @@ const App = () => {
   const [chartData, setChartData] = useState([]);
   const [entireDomain, setEntireDomain] = useState({});
   const getChartData = () => {
-    getApiData({ tickers, setEntireDomain, setChartData, setRenderLoad });
+    getApiData({
+      tickers,
+      setEntireDomain,
+      setChartData,
+      setRenderLoad,
+      setWeights,
+    });
     setRenderLoad(true);
   };
   return (
@@ -37,7 +43,10 @@ const App = () => {
         </div>
       )}
       {!renderLoad && chartData.length != 0 && (
-        <Chart data={chartData} entireDomain={entireDomain} maxPoints={300} />
+        <>
+          <Chart data={chartData} entireDomain={entireDomain} maxPoints={300} />
+          <Caption weights={weights} />
+        </>
       )}
     </div>
   );
