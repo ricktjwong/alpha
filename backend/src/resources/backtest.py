@@ -12,7 +12,6 @@ from numpy import matmul
 from repositories import TickerOHLCRepository
 from util import parse_dict, parse_params
 
-
 class BacktestResource(Resource):
     """ Verbs relative to the users """
 
@@ -28,8 +27,13 @@ class BacktestResource(Resource):
         symbols = allocation.keys()
 
         start_date = TickerOHLCRepository.get_earliest_common_date(symbols)
-        history = TickerOHLCRepository.get_by_tickers(symbols, start_date)
+        history, dates = TickerOHLCRepository.get_by_tickers(symbols, start_date)
 
         weight_vector = np.fromiter(allocation.values(), dtype=float)
-        returns = matmul(weight_vector, history.to_numpy().T)
-        return jsonify({"results": {"returns": returns.tolist()}})
+        returns = matmul(weight_vector, history.to_numpy().T).tolist()
+
+        results = {}
+        for returnz, date in zip(returns, dates):
+            results[date] = returnz
+
+        return jsonify({"results": {"returns": results}})

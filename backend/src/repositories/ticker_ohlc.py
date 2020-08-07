@@ -39,17 +39,22 @@ class TickerOHLCRepository:
             TickerOHLC.query.filter(TickerOHLC.datetime >= datetime)
             .filter(TickerOHLC.symbol.in_(symbols))
             .order_by(asc(TickerOHLC.datetime))
-            .with_entities(TickerOHLC.symbol, TickerOHLC.adj_close)
+            .with_entities(TickerOHLC.symbol, TickerOHLC.adj_close, TickerOHLC.datetime)
             .all()
         )
         all_history = {}
+        all_dates = set()
         for symbol in symbols:
             all_history[symbol] = []
         for row in results:
             all_history[row[0]].append(row[1])
+            all_dates.add(row[2])
 
         df = pd.DataFrame(all_history)
-        return df
+        dates = list(all_dates)
+        dates.sort(key=lambda date: date.timestamp())
+        dates = [date.strftime("%Y/%m/%d") for date in dates] 
+        return df, dates
 
     @staticmethod
     def create(datetime, symbol, openz, high, low, close, volume):
