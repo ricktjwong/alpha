@@ -2,7 +2,7 @@ from flask_script import Command, Option
 from flask_sqlalchemy import SQLAlchemy
 
 from .download import download_ohlc
-from .seed import seed_covariance, seed_tickers, prune_tickers
+from .seed import prune_tickers, seed_covariance, seed_tickers
 
 
 class Batch(Command):

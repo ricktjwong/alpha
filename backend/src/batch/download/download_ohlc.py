@@ -9,8 +9,6 @@ blacklist = ["AAN"]
 
 
 def convert_to_ohlc(df, ohlc_writer):
-    curr_symbol = ""
-    rows = []
     for i in range(len(df)):
         for j in range(0, len(df.columns), 6):
             symbol, column = df.columns[j]
@@ -31,8 +29,8 @@ def convert_to_ohlc(df, ohlc_writer):
 def download_ohlc():
     try:
         os.remove("./data/ohlc.csv")
-    except:
-        pass
+    except Exception:
+        print("No CSV found.")
 
     df = pd.read_csv("./data/ticker.csv")
 
@@ -52,6 +50,6 @@ def download_ohlc():
             pd.isnull(data.tail(365))
         )  # Remove Tickers with <1 Year of Data
         data.drop(data.columns[empty[1]], axis=1, inplace=True)
-        row_data = convert_to_ohlc(data, ohlc_writer)
+        convert_to_ohlc(data, ohlc_writer)
 
     csvfile.close()
