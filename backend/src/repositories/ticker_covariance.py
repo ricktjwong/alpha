@@ -11,7 +11,6 @@ class TickerCovarianceRepository:
         cov_mat = np.ndarray(shape=(dim, dim))
         for i in range(dim):
             for j in range(i, dim):
-                print(symbols[i], symbols[j])
                 covariance = TickerCovarianceRepository.get_covariance(
                     symbols[i], symbols[j]
                 )
