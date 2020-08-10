@@ -4,6 +4,7 @@ from datetime import datetime
 
 import pandas as pd
 from sqlalchemy import asc
+
 from models import TickerOHLC
 
 
@@ -53,11 +54,11 @@ class TickerOHLCRepository:
         df = pd.DataFrame(all_history)
         dates = list(all_dates)
         dates.sort(key=lambda date: date.timestamp())
-        dates = [date.strftime("%Y/%m/%d") for date in dates] 
+        dates = [date.strftime("%Y/%m/%d") for date in dates]
         return df, dates
 
     @staticmethod
-    def create(datetime, symbol, openz, high, low, close, volume):
+    def create(datetime, symbol, openz, high, low, close, adj_close, volume):
         """ Create a new user """
         ticker = TickerOHLC(
             datetime=datetime,

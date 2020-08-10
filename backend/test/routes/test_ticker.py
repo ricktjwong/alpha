@@ -1,7 +1,6 @@
 import json
 import unittest
 
-from models import Ticker
 from models.abc import db
 from repositories import TickerRepository
 from server import server

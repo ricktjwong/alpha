@@ -1,5 +1,6 @@
 """ Defines the Ticker Covariance repository """
 import numpy as np
+
 from models import TickerCovariance
 
 
