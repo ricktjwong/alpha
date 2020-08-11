@@ -82,10 +82,13 @@ const handleGetBacktest = (
 ) => {
   getBacktest(alloc).then(
     (res) => {
+      // data: {yyyy/mm/dd: returns}
       const data = res.results.returns;
+      const labels = Object.keys(data);
+      const returns = Object.values(data);
       const final = [];
-      for (var i = 0; i < data.length; i++) {
-        final.push({ x: new Date(i), y: data[i] });
+      for (var i = 0; i < labels.length; i++) {
+        final.push({ x: new Date(labels[i]), y: returns[i] });
       }
       setEntireDomain({
         y: [_.minBy(final, (d) => d.y).y, _.maxBy(final, (d) => d.y).y],
