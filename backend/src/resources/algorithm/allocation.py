@@ -11,7 +11,7 @@ from numpy import matmul
 from numpy.linalg import inv
 
 from repositories import TickerCovarianceRepository, TickerRepository
-from util import parse_dict, parse_list, parse_params
+from util import parse_dict, parse_params
 
 market_risk_premium = 0.056  # Magic number
 
@@ -36,7 +36,6 @@ class AllocationResource(Resource):
     )
     @swag_from("../../swagger/algorithm/allocation/POST.yml")
     def post(stocks, views):
-        count = 0
         stocks = parse_dict(stocks)
         allocation = get_allocation(stocks)
         return jsonify({"allocation": allocation})

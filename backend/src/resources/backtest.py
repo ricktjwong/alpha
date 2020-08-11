@@ -12,6 +12,7 @@ from numpy import matmul
 from repositories import TickerOHLCRepository
 from util import parse_dict, parse_params
 
+
 class BacktestResource(Resource):
     """ Verbs relative to the users """
 
