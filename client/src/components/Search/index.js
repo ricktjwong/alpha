@@ -46,8 +46,8 @@ const style = {
   searchBox: {
     width: '50vw',
     margin: '0 auto',
-    marginTop: 20,
     marginBottom: 20,
+    color: 'white',
   },
   optionContainer: {
     width: '50vw',
@@ -55,6 +55,7 @@ const style = {
   },
   inputField: {
     fontSize: 20,
+    color: 'white',
   },
 };
 
